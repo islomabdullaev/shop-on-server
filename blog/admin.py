@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from blog.models import AuthorModel, PostTagModel, PostModel
+from blog.models import AuthorModel, PostTagModel, PostModel, CommentModel
 
 
 @admin.register(AuthorModel)
@@ -23,3 +23,10 @@ class PostModelAdmin(admin.ModelAdmin):
     list_filter = ["author", "created_at"]
     search_fields = ["title"]
     autocomplete_fields = ["author", "tags"]
+
+
+@admin.register(CommentModel)
+class CommentModelAdmin(admin.ModelAdmin):
+    list_display = ["name", "email", "phone", "created_at"]
+    list_filter = ["created_at"]
+    
