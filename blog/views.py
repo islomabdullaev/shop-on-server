@@ -8,7 +8,7 @@ from blog.models import PostModel
 
 class BlogListView(ListView):
     template_name = "blog.html"
-
+    paginate_by = 2
     def get_queryset(self):
         q = PostModel.objects.order_by("-pk")
         tag = self.request.GET.get("tag")
