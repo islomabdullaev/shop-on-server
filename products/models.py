@@ -51,6 +51,9 @@ class ProductModel(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
 
+    def is_discount(self):
+        return self.discount != 0
+
     def get_price(self):
         if self.discount:
             return (100 - self.discount) / 100 * self.price
@@ -58,10 +61,13 @@ class ProductModel(models.Model):
 
 
     def is_new(self):
-        return (timezone.now() - self.created_at).days .days <= 3
+        return (timezone.now() - self.created_at).days <= 3
 
     def __str__(self):
         return self.title
+
+    def get_related(self):
+        return self.category.products.order_by("-pk").exclude(pk=self.pk)[:4]
 
     class Meta:
         verbose_name = _("product")

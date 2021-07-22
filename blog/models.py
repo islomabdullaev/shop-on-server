@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext as _
 
+
 class AuthorModel(models.Model):
     full_name = models.CharField(max_length=64, verbose_name=_("full name"))
     avatar = models.ImageField(upload_to="authors-avatar", verbose_name=_("avatar"))
@@ -8,7 +9,7 @@ class AuthorModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
 
     def __str__(self):
-        return  self.full_name
+        return self.full_name
 
     class Meta:
         verbose_name = _("author")
@@ -21,7 +22,6 @@ class PostTagModel(models.Model):
 
     def __str__(self):
         return self.title
-
 
     class Meta:
         verbose_name = _("post tag")
@@ -44,12 +44,11 @@ class PostModel(models.Model):
         return self.title
 
     def get_upper_title(self):
-        return  self.title.upper()
-
+        return self.title.upper()
 
     class Meta:
-        verbose_name =_("post")
-        verbose_name_plural =_("posts")
+        verbose_name = _("post")
+        verbose_name_plural = _("posts")
 
 
 class CommentModel(models.Model):
@@ -68,4 +67,4 @@ class CommentModel(models.Model):
     class Meta:
         verbose_name = _("comment")
         verbose_name_plural = _("comments")
-
+        
