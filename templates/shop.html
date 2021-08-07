@@ -37,7 +37,8 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="shop__product__option__left">
-                                    <p>Showing {{ page_obj.start_index }}-{{ page_obj.end_index }} of {{ page_obj.paginator.count }}</p>
+                                    <p>Showing {{ page_obj.start_index }}-{{ page_obj.end_index }}
+                                        of {{ page_obj.paginator.count }}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
@@ -45,8 +46,12 @@
                                     <p>Sort by Price:</p>
                                     <select onchange="addUrlParameter('sort', this.value)">
                                         <option value="">---</option>
-                                        <option {% if request.GET.sort == 'price' %}selected{% endif %} value="price">Low To High</option>
-                                        <option {% if request.GET.sort == '-price' %}selected{% endif %} value="-price">High To Low</option>
+                                        <option {% if request.GET.sort == 'price' %}selected{% endif %} value="price">
+                                            Low To High
+                                        </option>
+                                        <option {% if request.GET.sort == '-price' %}selected{% endif %} value="-price">
+                                            High To Low
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -74,4 +79,20 @@
             </div>
         </div>
     </section>
+{% endblock %}
+{% block extra_js %}
+    <script>
+    function addUrlParameter(name, value) {
+        let searchParams = new URLSearchParams(window.location.search)
+        if (['cat', 'brand', 'tag', 'size', 'color'].includes(name)) {
+            searchParams.delete('page');
+        }
+        if (searchParams.has(name) && searchParams.get(name) == value) {
+            searchParams.delete(name);
+        } else {
+            searchParams.set(name, value)
+        }
+        window.location.search = searchParams.toString()
+    }
+    </script>
 {% endblock %}

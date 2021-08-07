@@ -180,6 +180,7 @@
             <div class="row">
                 {% for product in object.get_related %}
                     <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
+                    {{ product }}
                         {% include 'layouts/product_block.html' %}
                     </div>
                 {% endfor %}

@@ -29,6 +29,45 @@ class ProductTagModel(models.Model):
         verbose_name_plural = _("product tags")
 
 
+class BrandModel(models.Model):
+    title = models.CharField(max_length=32, verbose_name=_("title"))
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = _("brand")
+        verbose_name_plural = _("brands")
+
+
+class ColorModel(models.Model):
+    code = models.CharField(max_length=32, verbose_name=_("code"))
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.code
+
+    class Meta:
+        verbose_name = _("color")
+        verbose_name_plural = _("colors")
+
+
+class SizeModel(models.Model):
+    title = models.CharField(max_length=32, verbose_name=_("title"))
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = _("size")
+        verbose_name_plural = _("sizes")
+
+
 class ProductModel(models.Model):
     title = models.CharField(max_length=128, verbose_name=_("title"))
     image = models.ImageField(upload_to="products", verbose_name=_("image"))
@@ -42,11 +81,30 @@ class ProductModel(models.Model):
         related_name=_("products"),
         verbose_name=_("category")
     )
+    brand = models.ForeignKey(
+        BrandModel,
+        on_delete=models.PROTECT,
+        related_name="products",
+        verbose_name=_("brand"),
+        null=True
+    )
 
     tags = models.ManyToManyField(
         ProductTagModel,
         related_name="products",
         verbose_name=_("tags")
+    )
+
+    colors = models.ManyToManyField(
+        ColorModel,
+        related_name="products",
+        verbose_name=_("color"),
+    )
+
+    sizes = models.ManyToManyField(
+        SizeModel,
+        related_name="products",
+        verbose_name=_("size"),
     )
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
@@ -58,7 +116,6 @@ class ProductModel(models.Model):
         if self.discount:
             return (100 - self.discount) / 100 * self.price
         return self.price
-
 
     def is_new(self):
         return (timezone.now() - self.created_at).days <= 3
