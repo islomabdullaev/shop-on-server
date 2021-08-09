@@ -44,6 +44,7 @@ class ProductModelAdmin(admin.ModelAdmin):
     list_filter = ["category", "tags", "created_at"]
     search_fields = ["title"]
     autocomplete_fields = ["category", "tags", "brand", "colors", "sizes"]
+    readonly_fields = ["real_price"]
 
 
 @admin.register(SizeModel)

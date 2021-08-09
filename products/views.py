@@ -43,6 +43,11 @@ class ProductsListView(ListView):
         if size:
             model = model.filter(sizes__id=size)
 
+        price_filter = self.request.GET.get("price_filter")
+        if price_filter:
+            price_from, price_to = price_filter.split(";")
+            model = model.filter(real_price__gte=price_from, real_price__lte=price_to)
+
         sort = self.request.GET.get("sort")
         if sort == "-price":
             model = model.order_by("-price")

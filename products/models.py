@@ -72,6 +72,7 @@ class ProductModel(models.Model):
     title = models.CharField(max_length=128, verbose_name=_("title"))
     image = models.ImageField(upload_to="products", verbose_name=_("image"))
     price = models.FloatField(verbose_name=_("price"))
+    real_price = models.FloatField(default=0, verbose_name=_("real_price"))
     discount = models.PositiveSmallIntegerField(default=0)
     short_description = models.TextField(verbose_name=_("short description"))
     long_description = models.TextField(verbose_name=_("long description"))

@@ -1,5 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
+{% load my_tags  %}
 
 {% block extra_css %}
     <style>
@@ -7,6 +8,8 @@
             cursor: pointer;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>
+
 {% endblock %}
 
 {% block content %}
@@ -37,8 +40,7 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="shop__product__option__left">
-                                    <p>Showing {{ page_obj.start_index }}-{{ page_obj.end_index }}
-                                        of {{ page_obj.paginator.count }}</p>
+                                    <p>Showing {{ page_obj.start_index }}-{{ page_obj.end_index }} of {{ page_obj.paginator.count }}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
@@ -46,12 +48,8 @@
                                     <p>Sort by Price:</p>
                                     <select onchange="addUrlParameter('sort', this.value)">
                                         <option value="">---</option>
-                                        <option {% if request.GET.sort == 'price' %}selected{% endif %} value="price">
-                                            Low To High
-                                        </option>
-                                        <option {% if request.GET.sort == '-price' %}selected{% endif %} value="-price">
-                                            High To Low
-                                        </option>
+                                        <option {% if request.GET.sort == 'price' %}selected{% endif %} value="price">Low To High</option>
+                                        <option {% if request.GET.sort == '-price' %}selected{% endif %} value="-price">High To Low</option>
                                     </select>
                                 </div>
                             </div>
@@ -80,13 +78,14 @@
         </div>
     </section>
 {% endblock %}
+
 {% block extra_js %}
-    <script>
+    <script> // ?cat=1
     function addUrlParameter(name, value) {
         let searchParams = new URLSearchParams(window.location.search)
-        if (['cat', 'brand', 'tag', 'size', 'color'].includes(name)) {
-            searchParams.delete('page');
-        }
+        //if (['cat', 'brand', 'tag', 'size', 'color'].includes(name)) {
+        //    searchParams.delete('page');
+        //}
         if (searchParams.has(name) && searchParams.get(name) == value) {
             searchParams.delete(name);
         } else {
@@ -94,5 +93,18 @@
         }
         window.location.search = searchParams.toString()
     }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
+    <script>
+        $(".js-range-slider").ionRangeSlider({
+            type: "double",
+            min: 0,
+            max: 1000,
+            {% get_default_range request %}
+            grid: true,
+            onFinish: function (data) {
+                addUrlParameter('price_filter', data.from + ';' + data.to);
+            },
+        });
     </script>
 {% endblock %}
