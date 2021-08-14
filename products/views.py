@@ -1,12 +1,17 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Max, Min
 from django.http import request
+from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
 
-from products.models import ProductModel, CategoryModel, ProductTagModel, BrandModel, SizeModel, ColorModel
+from products.models import ProductModel, CategoryModel, ProductTagModel, BrandModel, SizeModel, ColorModel, \
+    WishlistModel
 
 
 class ProductsListView(ListView):
-    paginate_by = 3
     template_name = "shop.html"
+    paginate_by = 3
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -15,6 +20,9 @@ class ProductsListView(ListView):
         context["brands"] = BrandModel.objects.all()
         context["sizes"] = SizeModel.objects.all()
         context["colors"] = ColorModel.objects.all()
+        context["max_price"],  context["min_price"] = ProductModel.objects.aggregate(
+            Max("real_price"), Min("real_price")
+        ).values()
         return context
 
     def get_queryset(self):
@@ -60,3 +68,32 @@ class ProductsListView(ListView):
 class ProductDetailView(DetailView):
     template_name = "shop-details.html"
     model = ProductModel
+
+
+class WishListView(LoginRequiredMixin, ListView):
+    template_name = "wishlist.html"
+
+    def get_queryset(self):
+        return ProductModel.objects.filter(wishlist__user=self.request.user)
+
+
+@login_required
+def update_wishlist(request, pk):
+    product = get_object_or_404(ProductModel, pk=pk)
+    WishlistModel.add_or_delete(request.user, product)
+
+    return redirect(request.GET.get('next', '/'))
+
+
+@login_required
+def update_cart(request, pk):
+    product = get_object_or_404(ProductModel, pk=pk)
+    cart = request.session.get("cart", [])
+    if product.pk in cart:
+        cart.remove(product.pk)
+    else:
+        cart.append(product.pk)
+    request.session["cart"] = cart
+    print(request.session["cart"])
+
+    return redirect(request.GET.get("next", "/"))

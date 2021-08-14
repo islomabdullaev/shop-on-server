@@ -1,4 +1,5 @@
 {% load static %}
+{% load my_tags %}
 
 <div class="product__item {% if product.discount %}sale{% endif %}">
     <div class="product__item__pic set-bg" data-setbg="{{ product.image.url }}">
@@ -10,16 +11,30 @@
         {% endif %}
         <ul class="product__hover">
             <li>
-                <a href="{% url 'products:detail' pk=product.pk  %}"><img src="{% static 'img/icon/heart.png' %}" alt=""></a>
+                <a href="{% url 'products:update-wishlist' pk=product.pk %}?next={{ request.path }}">
+                    {% if product|in_wishlist:request.user %}
+                        <img src="{% static 'img/icon/heartr.png' %}" alt="">
+                    {% else %}
+                        <img src="{% static 'img/icon/heart.png' %}" alt="">
+                    {% endif %}
+                </a>
             </li>
             <li>
-                <a href="{% url 'products:detail' pk=product.pk %}"><img src="{% static 'img/icon/search.png' %}" alt=""></a>
+                <a href="{% url 'products:detail' pk=product.pk %}">
+                    <img src="{% static 'img/icon/search.png' %}" alt="">
+                </a>
             </li>
         </ul>
     </div>
     <div class="product__item__text">
         <h6>{{ product.title }}</h6>
-        <a href="#" class="add-cart">+ Add To Cart</a>
+        <a href="{% url 'products:update-cart' pk=product.pk %}?next={{ request.path }}" class="add-cart">
+            {% if product|in_cart:request %}
+            - Remove From Cart
+            {% else %}
+            + Add To Cart
+            {% endif %}
+        </a>
         <div class="rating">
             <i class="fa fa-star-o"></i>
             <i class="fa fa-star-o"></i>
