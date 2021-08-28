@@ -77,6 +77,13 @@ class WishListView(LoginRequiredMixin, ListView):
         return ProductModel.objects.filter(wishlist__user=self.request.user)
 
 
+class CartListView(ListView):
+    template_name = 'shopping-cart.html'
+
+    def get_queryset(self):
+        cart = self.request.session.get('cart', [])
+        return ProductModel.get_from_cart(cart)
+
 @login_required
 def update_wishlist(request, pk):
     product = get_object_or_404(ProductModel, pk=pk)

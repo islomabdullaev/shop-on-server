@@ -29,5 +29,21 @@
 #         break
 # else:
 #     i += 1
-lst_1 = [1, 2, 3]
-print(lst_1[::-1])
+# lst_1 = [1, 2, 3]
+# print(lst_1[::-1])
+#1
+
+# numbers = [1, 2, 3, 4, 5, 6, 7]
+#
+# start = 2
+# end = 5
+# rng = numbers[start:end]
+# result = 0
+# for i in rng:
+#     result += i
+# print(result)
+
+#2
+file = open("access.log", "r")
+for line in file.readlines():
+    print(line.split())

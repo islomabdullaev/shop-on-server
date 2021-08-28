@@ -1,6 +1,7 @@
+from django.db.models import Sum
 from django.template import Library
 
-from products.models import WishlistModel
+from products.models import WishlistModel, ProductModel
 
 register = Library()
 
@@ -12,6 +13,16 @@ def get_default_range(request):
         price_from, price_to = price.split(';')
         return f'from: {price_from}, to: {price_to},'
     return ''
+
+
+@register.simple_tag
+def get_cart_info(request):
+    cart = request.session.get("cart", [])
+
+    if not cart:
+        return 0, 0.0
+
+    return len(cart), ProductModel.get_from_cart(cart).aggregate(Sum("real_price"))["real_price__sum"]
 
 
 @register.filter

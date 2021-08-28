@@ -8,6 +8,7 @@ from pages.models import BannerModel
 
 class IndexTemplateView(TemplateView):
     template_name = "index.html"
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["posts"] = PostModel.objects.order_by("-pk")[:3]
@@ -21,6 +22,7 @@ class ContactCreateView(CreateView):
 
     def get_success_url(self):
         return reverse("pages:contact")
+
 
 class AboutTemplateView(TemplateView):
     template_name = "about.html"

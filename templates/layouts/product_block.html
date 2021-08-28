@@ -12,7 +12,7 @@
         <ul class="product__hover">
             <li>
                 <a href="{% url 'products:update-wishlist' pk=product.pk %}?next={{ request.path }}">
-                    {% if product|in_wishlist:request.user %}
+                    {% if request.user.is_authenticated and product|in_wishlist:request.user %}
                         <img src="{% static 'img/icon/heartr.png' %}" alt="">
                     {% else %}
                         <img src="{% static 'img/icon/heart.png' %}" alt="">
