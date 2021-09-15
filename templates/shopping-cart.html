@@ -56,7 +56,8 @@
                                     <td class="cart__price">${{ product.real_price }}</td>
                                     <td class="cart__close">
                                         <a href="{% url 'products:update-cart' product.pk %}?next={{ request.path }}">
-                                            <i class="fa fa-close"></i></td>
+                                            <i class="fa fa-close"></i></a>
+                                    </td>
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -77,7 +78,7 @@
                             <li>Subtotal <span>$ 169.50</span></li>
                             <li>Total <span>$ 169.50</span></li>
                         </ul>
-                        <a href="#" class="primary-btn">Proceed to checkout</a>
+                        <a href="{% url 'orders:checkout-view' %}" class="primary-btn">Proceed to checkout</a>
                     </div>
                 </div>
             </div>

@@ -98,8 +98,8 @@
     <script>
         $(".js-range-slider").ionRangeSlider({
             type: "double",
-            min: {{min_price}},
-            max: {{ max_price }},
+            min: {{min_price|replace:",."}},
+            max: {{ max_price|replace:",." }},
             {% get_default_range request %}
             grid: true,
             onFinish: function (data) {

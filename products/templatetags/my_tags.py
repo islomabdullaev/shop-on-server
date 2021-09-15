@@ -33,3 +33,9 @@ def in_wishlist(product, user):
 @register.filter
 def in_cart(product, request):
     return product.pk in request.session.get('cart', [])
+
+
+@register.filter
+def replace(text, pattern):
+    text = str(text)
+    return text.replace(pattern[0], pattern[1])
