@@ -84,6 +84,7 @@ class CartListView(ListView):
         cart = self.request.session.get('cart', [])
         return ProductModel.get_from_cart(cart)
 
+
 @login_required
 def update_wishlist(request, pk):
     product = get_object_or_404(ProductModel, pk=pk)

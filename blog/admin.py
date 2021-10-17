@@ -29,4 +29,3 @@ class PostModelAdmin(admin.ModelAdmin):
 class CommentModelAdmin(admin.ModelAdmin):
     list_display = ["name", "email", "phone", "created_at"]
     list_filter = ["created_at"]
-    
