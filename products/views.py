@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Max, Min
 from django.http import request
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView, DetailView
 
 from products.models import ProductModel, CategoryModel, ProductTagModel, BrandModel, SizeModel, ColorModel, \
@@ -20,7 +20,7 @@ class ProductsListView(ListView):
         context["brands"] = BrandModel.objects.all()
         context["sizes"] = SizeModel.objects.all()
         context["colors"] = ColorModel.objects.all()
-        context["max_price"],  context["min_price"] = ProductModel.objects.aggregate(
+        context["max_price"], context["min_price"] = ProductModel.objects.aggregate(
             Max("real_price"), Min("real_price")
         ).values()
         return context
@@ -70,11 +70,15 @@ class ProductDetailView(DetailView):
     model = ProductModel
 
 
-class WishListView(LoginRequiredMixin, ListView):
-    template_name = "wishlist.html"
-
-    def get_queryset(self):
-        return ProductModel.objects.filter(wishlist__user=self.request.user)
+def wishlist(request):
+    if request.user.is_authenticated:
+        products = WishlistModel.objects.filter(user=request.user)
+    else:
+        return redirect("accounts:login")
+    context = {
+        "products": products,
+    }
+    return render(request, "wishlist.html", context)
 
 
 class CartListView(ListView):
@@ -85,7 +89,7 @@ class CartListView(ListView):
         return ProductModel.get_from_cart(cart)
 
 
-@login_required
+@login_required(login_url="pages:home")
 def update_wishlist(request, pk):
     product = get_object_or_404(ProductModel, pk=pk)
     WishlistModel.add_or_delete(request.user, product)
@@ -93,15 +97,19 @@ def update_wishlist(request, pk):
     return redirect(request.GET.get('next', '/'))
 
 
-@login_required
+@login_required(login_url="accounts:login")
 def update_cart(request, pk):
-    product = get_object_or_404(ProductModel, pk=pk)
-    cart = request.session.get("cart", [])
-    if product.pk in cart:
-        cart.remove(product.pk)
+    if request.user.is_authenticated:
+
+        product = get_object_or_404(ProductModel, pk=pk)
+        cart = request.session.get("cart", [])
+        if product.pk in cart:
+            cart.remove(product.pk)
+        else:
+            cart.append(product.pk)
+        request.session["cart"] = cart
+        print(request.session["cart"])
     else:
-        cart.append(product.pk)
-    request.session["cart"] = cart
-    print(request.session["cart"])
+        return redirect("accounts:login")
 
     return redirect(request.GET.get("next", "/"))

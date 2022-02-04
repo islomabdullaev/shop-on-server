@@ -7,7 +7,8 @@
             cursor: pointer;
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>
 
 {% endblock %}
 
@@ -36,7 +37,8 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="shop__product__option__left">
-                                    <p>Showing {{ page_obj.start_index }}-{{ page_obj.end_index }} of {{ page_obj.paginator.count }}</p>
+                                    <p>Showing {{ page_obj.start_index }}-{{ page_obj.end_index }}
+                                        of {{ page_obj.paginator.count }}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
@@ -44,19 +46,27 @@
                                     <p>Sort by Price:</p>
                                     <select onchange="addUrlParameter('sort', this.value)">
                                         <option value="">---</option>
-                                        <option {% if request.GET.sort == 'price' %}selected{% endif %} value="price">Low To High</option>
-                                        <option {% if request.GET.sort == '-price' %}selected{% endif %} value="-price">High To Low</option>
+                                        <option {% if request.GET.sort == 'price' %}selected{% endif %} value="price">
+                                            Low To High
+                                        </option>
+                                        <option {% if request.GET.sort == '-price' %}selected{% endif %} value="-price">
+                                            High To Low
+                                        </option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        {% for product in object_list %}
-                            <div class="col-lg-3 col-md-4 col-sm-4">
-                                {% include 'layouts/product_block.html' %}
-                            </div>
-                        {% endfor %}
+                        {% if products %}
+                            {% for product in products %}
+                                <div class="col-lg-3 col-md-4 col-sm-4">
+                                    {% include 'layouts/product_block.html' %}
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <h2>Nothing has beed added to your wishlist</h2>
+                        {% endif %}
 
                     </div>
                     <div class="row">
