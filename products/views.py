@@ -70,6 +70,7 @@ class ProductDetailView(DetailView):
     model = ProductModel
 
 
+@login_required(login_url="accounts:login")
 def wishlist(request):
     if request.user.is_authenticated:
         products = WishlistModel.objects.filter(user=request.user)
@@ -89,7 +90,7 @@ class CartListView(ListView):
         return ProductModel.get_from_cart(cart)
 
 
-@login_required(login_url="pages:home")
+@login_required(login_url="accounts:login")
 def update_wishlist(request, pk):
     product = get_object_or_404(ProductModel, pk=pk)
     WishlistModel.add_or_delete(request.user, product)

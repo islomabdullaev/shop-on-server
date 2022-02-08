@@ -27,7 +27,7 @@
         </ul>
     </div>
     <div class="product__item__text">
-        <h6>{{ product.title }}</h6>
+        <h6>{{ product }}</h6>
         <a href="{% url 'products:update-cart' pk=product.pk %}?next={{ request.path }}" class="add-cart">
             {% if product|in_cart:request %}
             - Remove From Cart

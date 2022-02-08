@@ -58,16 +58,11 @@
                         </div>
                     </div>
                     <div class="row">
-                        {% if products %}
-                            {% for product in products %}
+                            {% for product in products.all %}
                                 <div class="col-lg-3 col-md-4 col-sm-4">
                                     {% include 'layouts/product_block.html' %}
                                 </div>
                             {% endfor %}
-                        {% else %}
-                            <h2>Nothing has beed added to your wishlist</h2>
-                        {% endif %}
-
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
