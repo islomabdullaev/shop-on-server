@@ -4,6 +4,7 @@ from django.views.generic import TemplateView, CreateView
 from blog.models import PostModel
 from pages.forms import ContactModelForm
 from pages.models import BannerModel
+from products.models import ProductModel
 
 
 class IndexTemplateView(TemplateView):
@@ -13,6 +14,7 @@ class IndexTemplateView(TemplateView):
         context = super().get_context_data(**kwargs)
         context["posts"] = PostModel.objects.order_by("-pk")[:3]
         context["banners"] = BannerModel.objects.filter(is_active=True)
+        context["products"] = ProductModel.objects.order_by('-pk')[:7]
         return context
 
 

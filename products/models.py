@@ -130,6 +130,9 @@ class ProductModel(models.Model):
         verbose_name = _("product")
         verbose_name_plural = _("products")
 
+    class Meta:
+        ordering = ['-id']
+
 
 class WishlistModel(models.Model):
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='wishlist')

@@ -27,12 +27,12 @@
         </ul>
     </div>
     <div class="product__item__text">
-        <h6>{{ product }}</h6>
-        <a href="{% url 'products:update-cart' pk=product.pk %}?next={{ request.path }}" class="add-cart">
+        <h6>{{ product.title }}</h6>
+        <a href="{% url 'products:update-cart' product.pk %}?next={{ request.path }}" class="add-cart">
             {% if product|in_cart:request %}
-            - Remove From Cart
+                - Remove From Cart
             {% else %}
-            + Add To Cart
+                + Add To Cart
             {% endif %}
         </a>
         <div class="rating">

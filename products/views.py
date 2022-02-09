@@ -68,6 +68,7 @@ class ProductsListView(ListView):
 class ProductDetailView(DetailView):
     template_name = "shop-details.html"
     model = ProductModel
+    context_object_name = "product"
 
 
 @login_required(login_url="accounts:login")
