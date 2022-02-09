@@ -48,7 +48,6 @@
                                     </td>
                                     <td class="quantity__item">
                                     </td>
-                                    <td class="cart__price">${{ product.real_price }}</td>
                                     <td class="cart__close">
                                         <a href="{% url 'products:update-cart' product.pk %}?next={{ request.path }}">
                                             <i class="fa fa-close"></i></a>
@@ -63,7 +62,8 @@
                     <div class="cart__total">
                         <h6>Cart total</h6>
                         <ul>
-                            <li>Total <span>$ {{ object_list.real_price }}</span></li>
+                            {% get_cart_info request as cart_info %}
+                            <li>Total <span>$ {{ cart_info.1 }}</span></li>
                         </ul>
                         <a href="{% url 'orders:checkout-view' %}" class="primary-btn">Buy</a>
                     </div>
