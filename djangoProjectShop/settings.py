@@ -143,7 +143,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = 'iislom280@gmail.com'
-EMAIL_HOST_PASSWORD = 'Dell2021'
+EMAIL_HOST_PASSWORD = 'Islom2002'
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

@@ -19,7 +19,7 @@
     <section class="checkout spad">
         <div class="container">
             <div class="checkout__form">
-                <form method="post">
+                <form action="{% url 'users:profile-save' %}" method="POST">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
@@ -29,66 +29,62 @@
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>First Name<span>*</span></p>
-                                        <input name="{{ form.first_name.name }}"
-                                               value="{{ form.first_name.value|default:'' }}" type="text">
+                                        <input name="first_name"
+                                               value="{{ user.profile.first_name|default:'' }}" type="text">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Last Name<span>*</span></p>
-                                        <input name="{{ form.last_name.name }}"
-                                               value="{{ form.last_name.value|default:'' }}" type="text">
+                                        <input name="last_name"
+                                               value="{{ user.profile.last_name|default:'' }}" type="text">
                                     </div>
                                 </div>
                             </div>
                             <div class="checkout__input">
                                 <p>Country<span>*</span></p>
-                                <input name="{{ form.country.name }}" value="{{ form.country.value|default:'' }}"
+                                <input name="country" value="{{ user.profile.country|default:'' }}"
                                        type="text">
                             </div>
                             <div class="checkout__input">
                                 <p>Address<span>*</span></p>
-                                <input name="{{ form.address1.name }}" value="{{ form.address1.value|default:'' }}"
+                                <input name="address1" value="{{ user.profile.address1|default:'' }}"
                                        type="text" placeholder="Street Address" class="checkout__input__add">
-                                <input name="{{ form.address2.name }}" value="{{ form.address2.value|default:'' }}"
+                                <input name="address2" value="{{ user.profile.address2|default:'' }}"
                                        type="text" placeholder="Apartment, suite, unite ect (optinal)">
                             </div>
                             <div class="checkout__input">
                                 <p>Town/City<span>*</span></p>
-                                <input name="{{ form.city.name }}" value="{{ form.city.value|default:'' }}" type="text">
+                                <input name="city" value="{{ user.profile.city|default:'' }}" type="text">
                             </div>
                             <div class="checkout__input">
                                 <p>Country/State<span>*</span></p>
-                                <input name="{{ form.state.name }}" value="{{ form.country.value|default:'' }}"
+                                <input name="state" value="{{ user.profile.country|default:'' }}"
                                        type="text">
                             </div>
                             <div class="checkout__input">
                                 <p>Postcode / ZIP<span>*</span></p>
-                                <input name="{{ form.postcode.name }}" value="{{ form.postcode.value|default:'' }}"
+                                <input name="postcode" value="{{ user.profile.postcode|default:'' }}"
                                        type="text">
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Phone<span>*</span></p>
-                                        <input name="{{ form.phone.name }}" value="{{ form.phone.value|default:'' }}"
+                                        <input name="phone" value="{{ user.profile.phone|default:'' }}"
                                                type="text">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Email<span>*</span></p>
-                                        <input name="{{ form.email.name }}" value="{{ form.email.value|default:'' }}"
+                                        <input name="email" value="{{ user.profile.email|default:'' }}"
                                                type="text">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <button class="site-btn float-right" type="submit">Save</button>
-                    <a href="{% url 'auth_password_change' %}">
-                        <button class="site-btn float-right mr-5" type="button">Update Password</button>
-                    </a>
                 </form>
             </div>
         </div>

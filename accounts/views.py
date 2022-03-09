@@ -1,4 +1,4 @@
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
@@ -18,7 +18,37 @@ def login(request):
 
 
 def signup(request):
-    pass
+    if request.method == "POST":
+        username = request.POST["username"]
+        email = request.POST["email"]
+        password = request.POST["password1"]
+        confirm_password = request.POST["password2"]
+
+        if password == confirm_password:
+            if User.objects.filter(username=username).exists():
+                messages.error(request, "Username already exists")
+                return redirect("accounts:signup")
+            else:
+                if User.objects.filter(email=email).exists():
+                    messages.error(request, "Email already exists")
+                    return redirect("accounts:signup")
+                else:
+                    user = User.objects.create_user(
+                        username=username,
+                        email=email,
+                        password=password
+                    )
+                    auth.login(request, user)
+                    messages.success(request, "You are now logged in")
+                    return redirect("pages:home")
+                    user.save()
+                    messages.success(request, "You are registered successfully.")
+                    redirect("accounts:login")
+        else:
+            messages.error(request, "password do not match")
+            return redirect("accounts:signup")
+    else:
+        return render(request, "accounts/registration.html")
 
 
 def logout(request):
