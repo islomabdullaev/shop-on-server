@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure--r+4#_!ng8avr5ma$bpp$z(y@q&gv@$k$dfvxb#z)@zs%u@ok&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["164.92.129.5"]
 
 INSTALLED_APPS = [
     'registration',
@@ -79,11 +79,11 @@ WSGI_APPLICATION = 'djangoProjectShop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config("DB_NAME"),
-        'USER': config("DB_USER"),
-        'PASSWORD': config("DB_PASS"),
-        'HOST': config("DB_HOST"),
-        'PORT': config("DB_PORT")
+        'NAME': 'shop_db',
+        'USER': 'stifler',
+        'PASSWORD': 'Isca2002',
+        'HOST': 'Isca2002',
+        'PORT': '',
     }
 }
 
