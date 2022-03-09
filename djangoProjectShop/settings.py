@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'shop_db',
         'USER': 'stifler',
         'PASSWORD': 'Isca2002',
-        'HOST': 'Isca2002',
+        'HOST': 'localhost',
         'PORT': '',
     }
 }
