@@ -7,6 +7,7 @@ from django.views.generic import CreateView, TemplateView, ListView
 from orders.forms import OrderModelForm
 from orders.models import OrderModel
 from products.models import ProductModel
+from users.models import ProfileModel
 
 
 class CheckoutTemplateView(LoginRequiredMixin, TemplateView):
@@ -55,5 +56,3 @@ class OrderHistoryTemplateView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return OrderModel.objects.filter(user=self.request.user)
-
-

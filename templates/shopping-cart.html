@@ -65,7 +65,11 @@
                             {% get_cart_info request as cart_info %}
                             <li>Total <span>$ {{ cart_info.1 }}</span></li>
                         </ul>
-                        <a href="{% url 'orders:checkout-view' %}" class="primary-btn">Buy</a>
+                        {% if request.user.profile %}
+                            <a href="{% url 'orders:checkout-view' %}" class="primary-btn">Buy</a>
+                        {% else %}
+                            <p class="color-danger">Please first fill in the profile form to process your purchase</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>

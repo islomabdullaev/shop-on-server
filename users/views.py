@@ -29,7 +29,7 @@ def profile_save(request):
         state = request.POST["state"]
         postcode = request.POST["postcode"]
 
-        profile = ProfileAbstractModel.objects.create(
+        profile = ProfileModel.objects.create(
             phone=phone,
             email=email,
             first_name=first_name,
@@ -39,7 +39,8 @@ def profile_save(request):
             address2=address2,
             city=city,
             state=state,
-            postcode=postcode
+            postcode=postcode,
+            user=request.user,
         )
         profile.save()
         print(profile)
