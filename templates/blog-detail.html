@@ -11,7 +11,7 @@
                         <ul>
                             <li>By {{ object.author.full_name }}</li>
                             <li>{{ object.created_at| date:"N d, Y" }}</li>
-                            <li>8 Comments</li>
+                            <li>{{ object.comments.all.count }} Comments</li>
                         </ul>
                     </div>
                 </div>
