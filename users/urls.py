@@ -1,11 +1,10 @@
 from django.urls import path
 
-from users.views import profile, profile_save
+from users.views import profile, profile_update
 
 app_name = "users"
 
 urlpatterns = [
-    path("user/", profile, name="profile"),
-    path("profile-save/", profile_save, name="profile-save"),
-
+    path("profile/", profile, name="profile"),
+    path("profile-update", profile_update, name="profile-update"),
 ]

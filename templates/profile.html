@@ -19,7 +19,7 @@
     <section class="checkout spad">
         <div class="container">
             <div class="checkout__form">
-                <form action="{% url 'users:profile-save' %}" method="POST">
+                <form action="{% url 'users:profile-update' %}" method="POST">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
@@ -85,7 +85,7 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-dark">Save</button>
+                    <button type="submit" class="btn btn-dark">Save</button>
                 </form>
             </div>
         </div>

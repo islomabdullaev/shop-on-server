@@ -129,9 +129,7 @@ class ProductModel(models.Model):
     class Meta:
         verbose_name = _("product")
         verbose_name_plural = _("products")
-
-    class Meta:
-        ordering = ['-id']
+        ordering = ["-id"]
 
 
 class WishlistModel(models.Model):
