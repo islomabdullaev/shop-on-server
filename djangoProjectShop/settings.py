@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure--r+4#_!ng8avr5ma$bpp$z(y@q&gv@$k$dfvxb#z)@zs%u@ok&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["164.92.129.5", "127.0.0.1"]
+ALLOWED_HOSTS = ["127.0.0.1", "shop-server-2022.herokuapp.com/"]
 
 INSTALLED_APPS = [
     'registration',
@@ -46,6 +46,9 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -138,6 +141,8 @@ EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = 'iislom280@gmail.com'
 EMAIL_HOST_PASSWORD = 'Islom2002'
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
