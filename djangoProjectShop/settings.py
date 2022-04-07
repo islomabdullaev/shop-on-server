@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure--r+4#_!ng8avr5ma$bpp$z(y@q&gv@$k$dfvxb#z)@zs%u@ok&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1", "shop-server-2022.herokuapp.com/"]
+ALLOWED_HOSTS = ["127.0.0.1", "shop-server-2022.herokuapp.com"]
 
 INSTALLED_APPS = [
     'registration',
