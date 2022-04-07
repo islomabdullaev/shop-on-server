@@ -121,6 +121,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "static"
 
