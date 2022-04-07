@@ -142,7 +142,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'iislom280@gmail.com'
 EMAIL_HOST_PASSWORD = 'Islom2002'
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
