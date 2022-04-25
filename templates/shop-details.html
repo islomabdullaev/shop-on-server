@@ -19,29 +19,25 @@
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">
-                                    <div class="product__thumb__pic set-bg"
-                                         data-setbg="{% static 'img/shop-details/thumb-1.png' %}">
+                                    <div class="product__thumb__pic set-bg" data-setbg="{% static 'img/shop-details/thumb-1.png' %}">
                                     </div>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">
-                                    <div class="product__thumb__pic set-bg"
-                                         data-setbg="{% static 'img/shop-details/thumb-2.png' %}">
+                                    <div class="product__thumb__pic set-bg" data-setbg="{% static 'img/shop-details/thumb-2.png' %}">
                                     </div>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">
-                                    <div class="product__thumb__pic set-bg"
-                                         data-setbg="{% static 'img/shop-details/thumb-3.png' %}">
+                                    <div class="product__thumb__pic set-bg" data-setbg="{% static 'img/shop-details/thumb-3.png' %}">
                                     </div>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab">
-                                    <div class="product__thumb__pic set-bg"
-                                         data-setbg="{% static 'img/shop-details/thumb-4.png' %}">
+                                    <div class="product__thumb__pic set-bg" data-setbg="{% static 'img/shop-details/thumb-4.png' %}">
                                         <i class="fa fa-play"></i>
                                     </div>
                                 </a>
@@ -68,8 +64,7 @@
                             <div class="tab-pane" id="tabs-4" role="tabpanel">
                                 <div class="product__details__pic__item">
                                     <img src="{% static 'img/shop-details/product-big-4.png' %}" alt="">
-                                    <a href="https://www.youtube.com/watch?v=8PJ3_p7VqHw&list=RD8PJ3_p7VqHw&start_radio=1"
-                                       class="video-popup"><i class="fa fa-play"></i></a>
+                                    <a href="https://www.youtube.com/watch?v=8PJ3_p7VqHw&list=RD8PJ3_p7VqHw&start_radio=1" class="video-popup"><i class="fa fa-play"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -143,8 +138,7 @@
                             <div class="product__details__last__option">
                                 <ul>
                                     <li><span>Category:</span> {{ object.category.title }}</li>
-                                    <li><span>Tag:</span> {% for tag in object.tags.all %}&nbsp#
-                                        {{ tag.title }}{% endfor %}
+                                    <li><span>Tag:</span> {% for tag in object.tags.all %}&nbsp#{{ tag.title }}{% endfor %}
                                     </li>
                                 </ul>
                             </div>
@@ -187,65 +181,63 @@
                 {% for product in object.get_related %}
                     <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
                         <div class="product__item {% if product.discount %}sale{% endif %}">
-                            <div class="product__item__pic set-bg" data-setbg="{{ product.image.url }}">
-                                {% if product.is_discount %}
-                                    <span class="label">Sale</span>
-                                {% endif %}
-                                {% if product.is_new %}
-                                    <span style="background-color: white; color: #111"
-                                          class="label {% if product.discount %}mt-4{% endif %}">New</span>
-                                {% endif %}
-                                <ul class="product__hover">
-                                    <li>
-                                        <a href="{% url 'products:update-wishlist' pk=product.pk %}?next={{ request.path }}">
-                                            {% if request.user.is_authenticated and product|in_wishlist:request.user %}
-                                                <img src="{% static 'img/icon/heartr.png' %}" alt="">
-                                            {% else %}
-                                                <img src="{% static 'img/icon/heart.png' %}" alt="">
-                                            {% endif %}
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{% url 'products:detail' pk=product.pk %}">
-                                            <img src="{% static 'img/icon/search.png' %}" alt="">
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <h6>{{ product.title }}</h6>
-                                <a href="{% url 'products:update-cart' product.pk %}?next={{ request.path }}"
-                                   class="add-cart">
-                                    {% if product|in_cart:request %}
-                                        - Remove From Cart
-                                    {% else %}
-                                        + Add To Cart
-                                    {% endif %}
-                                </a>
-                                <div class="rating">
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </div>
-                                <h5>${{ product.real_price }}
-                                    {% if product.is_discount %}
-                                        <strike class="text-secondary">{{ product.price }}</strike>{% endif %}
-                                </h5>
-                                <div class="product__color__select">
-                                    <label for="pc-4">
-                                        <input type="radio" id="pc-4">
-                                    </label>
-                                    <label class="active black" for="pc-5">
-                                        <input type="radio" id="pc-5">
-                                    </label>
-                                    <label class="grey" for="pc-6">
-                                        <input type="radio" id="pc-6">
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+    <div class="product__item__pic set-bg" data-setbg="{{ product.image.url }}">
+        {% if product.is_discount %}
+            <span class="label">Sale</span>
+        {% endif %}
+        {% if product.is_new %}
+            <span style="background-color: white; color: #111" class="label {% if product.discount %}mt-4{% endif %}">New</span>
+        {% endif %}
+        <ul class="product__hover">
+            <li>
+                <a href="{% url 'products:update-wishlist' pk=product.pk %}?next={{ request.path }}">
+                    {% if request.user.is_authenticated and product|in_wishlist:request.user %}
+                        <img src="{% static 'img/icon/heartr.png' %}" alt="">
+                    {% else %}
+                        <img src="{% static 'img/icon/heart.png' %}" alt="">
+                    {% endif %}
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'products:detail' pk=product.pk %}">
+                    <img src="{% static 'img/icon/search.png' %}" alt="">
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="product__item__text">
+        <h6>{{ product.title }}</h6>
+        <a href="{% url 'products:update-cart' product.pk %}?next={{ request.path }}" class="add-cart">
+            {% if product|in_cart:request %}
+                - Remove From Cart
+            {% else %}
+                + Add To Cart
+            {% endif %}
+        </a>
+        <div class="rating">
+            <i class="fa fa-star-o"></i>
+            <i class="fa fa-star-o"></i>
+            <i class="fa fa-star-o"></i>
+            <i class="fa fa-star-o"></i>
+            <i class="fa fa-star-o"></i>
+        </div>
+        <h5>${{ product.real_price }}
+            {% if product.is_discount %}
+                <strike class="text-secondary">{{ product.price }}</strike>{% endif %}
+        </h5>
+        <div class="product__color__select">
+            <label for="pc-4">
+                <input type="radio" id="pc-4">
+            </label>
+            <label class="active black" for="pc-5">
+                <input type="radio" id="pc-5">
+            </label>
+            <label class="grey" for="pc-6">
+                <input type="radio" id="pc-6">
+            </label>
+        </div>
+    </div>
+</div>
                     </div>
                 {% endfor %}
             </div>
