@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure--r+4#_!ng8avr5ma$bpp$z(y@q&gv@$k$dfvxb#z)@zs%u@ok&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1", "shop-server-2022.herokuapp.com"]
+ALLOWED_HOSTS = ["159.89.30.65"]
 
 INSTALLED_APPS = [
     'registration',
@@ -81,11 +81,11 @@ WSGI_APPLICATION = 'djangoProjectShop.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dallqaab2eqo47',
-        'USER': 'iwayjhyyqhiyzx',
-        'PASSWORD': '86872222695b739c7081f322029f23ad27437f725fdabab79efbda5aa70eb22c',
-        'HOST': 'ec2-3-224-125-117.compute-1.amazonaws.com',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'my_shop',
+        'USER': 'islom',
+        'PASSWORD': 'Isca2002',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
